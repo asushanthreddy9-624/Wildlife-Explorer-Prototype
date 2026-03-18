@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wildlife Explorer App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+</head>
+<body>
+    <div class="mobile-container">
+        <!-- Header -->
+        <header class="app-header bg-success text-white p-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <h1 class="h4 mb-0">
+                    <i class="bi bi-tree-fill me-2"></i>
+                    Wildlife Explorer
+                </h1>
+                <div class="d-flex align-items-center">
+                    <span class="badge bg-light text-success me-2">
+                        <i class="bi bi-geo-alt-fill"></i> Live
+                    </span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Live Map View (Default) -->
+            <section id="liveMapView" class="view-section active">
+                <div class="map-container">
+                    <img src="https://picsum.photos/seed/wildlifemap/400/600" alt="Wildlife Map" class="map-image">
+                    
+                    <!-- Wildlife Pins -->
+                    <div class="map-pin" style="top: 20%; left: 30%;" data-species="bird" data-location="Forest Area A">
+                        <i class="bi bi-twitter-fill text-primary"></i>
+                    </div>
+                    <div class="map-pin" style="top: 40%; left: 60%;" data-species="otter" data-location="River Point B">
+                        <i class="bi bi-droplet-fill text-info"></i>
+                    </div>
+                    <div class="map-pin" style="top: 65%; left: 25%;" data-species="bird" data-location="Wetland C">
+                        <i class="bi bi-twitter-fill text-primary"></i>
+                    </div>
+                    <div class="map-pin" style="top: 80%; left: 70%;" data-species="deer" data-location="Meadow D">
+                        <i class="bi bi-flower1 text-warning"></i>
+                    </div>
+                    
+                    <!-- Map Controls -->
+                    <div class="map-controls">
+                        <button class="btn btn-light btn-sm mb-2" onclick="zoomIn()">
+                            <i class="bi bi-zoom-in"></i>
+                        </button>
+                        <button class="btn btn-light btn-sm mb-2" onclick="zoomOut()">
+                            <i class="bi bi-zoom-out"></i>
+                        </button>
+                        <button class="btn btn-light btn-sm" onclick="resetMap()">
+                            <i class="bi bi-arrow-counterclockwise"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Wildlife Info Panel -->
+                <div class="info-panel bg-light p-3 mt-3">
+                    <h5 class="mb-2">Recent Sightings</h5>
+                    <div class="sighting-list">
+                        <div class="sighting-item d-flex justify-content-between align-items-center py-2 border-bottom">
+                            <div>
+                                <i class="bi bi-twitter-fill text-primary me-2"></i>
+                                <span>Bird spotted at Forest Area A</span>
+                            </div>
+                            <small class="text-muted">2 min ago</small>
+                        </div>
+                        <div class="sighting-item d-flex justify-content-between align-items-center py-2 border-bottom">
+                            <div>
+                                <i class="bi bi-droplet-fill text-info me-2"></i>
+                                <span>Otter at River Point B</span>
+                            </div>
+                            <small class="text-muted">5 min ago</small>
+                        </div>
+                        <div class="sighting-item d-flex justify-content-between align-items-center py-2">
+                            <div>
+                                <i class="bi bi-flower1 text-warning me-2"></i>
+                                <span>Deer in Meadow D</span>
+                            </div>
+                            <small class="text-muted">12 min ago</small>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Emergency Report View -->
+            <section id="emergencyView" class="view-section">
+                <div class="emergency-form">
+                    <div class="alert alert-warning d-flex align-items-center" role="alert">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                        <div>
+                            <strong>Emergency Reporting</strong>
+                            <div class="small">Report wildlife emergencies to the rescue team</div>
+                        </div>
+                    </div>
+
+                    <!-- GPS Location -->
+                    <div class="card bg-light mb-3">
+                        <div class="card-body">
+                            <h6 class="card-title">
+                                <i class="bi bi-geo-alt-fill text-success me-2"></i>
+                                Current GPS Location
+                            </h6>
+                            <p class="card-text mb-0" id="gpsLocation">1.3521° N, 103.8198° E</p>
+                            <button class="btn btn-sm btn-outline-success mt-2" onclick="updateLocation()">
+                                <i class="bi bi-arrow-clockwise"></i> Update Location
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Emergency Form -->
+                    <form id="emergencyForm">
+                        <div class="mb-3">
+                            <label for="incidentType" class="form-label">
+                                <i class="bi bi-exclamation-circle me-1"></i>
+                                Incident Type
+                            </label>
+                            <select class="form-select" id="incidentType" required>
+                                <option value="">Select incident type...</option>
+                                <option value="injured">Injured Animal</option>
+                                <option value="aggressive">Aggressive Behavior</option>
+                                <option value="trapped">Trapped Animal</option>
+                                <option value="abandoned">Abandoned Baby Animal</option>
+                                <option value="poaching">Poaching Activity</option>
+                                <option value="other">Other Emergency</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="animalType" class="form-label">
+                                <i class="bi bi-question-circle me-1"></i>
+                                Animal Type (if known)
+                            </label>
+                            <input type="text" class="form-control" id="animalType" placeholder="e.g., Bird, Otter, Deer">
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="incidentDetails" class="form-label">
+                                <i class="bi bi-text-paragraph me-1"></i>
+                                Incident Details
+                            </label>
+                            <textarea class="form-control" id="incidentDetails" rows="4" 
+                                placeholder="Describe the situation, animal condition, location details..." required></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="reporterName" class="form-label">
+                                <i class="bi bi-person me-1"></i>
+                                Your Name (Optional)
+                            </label>
+                            <input type="text" class="form-control" id="reporterName" placeholder="Liz">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="reporterContact" class="form-label">
+                                <i class="bi bi-telephone me-1"></i>
+                                Contact Number (Optional)
+                            </label>
+                            <input type="tel" class="form-control" id="reporterContact" placeholder="+65 XXXX XXXX">
+                        </div>
+
+                        <!-- Emergency Submit Button -->
+                        <button type="submit" class="btn btn-danger btn-lg w-100 py-3">
+                            <i class="bi bi-telephone-fill me-2"></i>
+                            SEND TO RESCUE TEAM
+                        </button>
+                    </form>
+
+                    <!-- Emergency Contacts -->
+                    <div class="mt-4 p-3 bg-light rounded">
+                        <h6 class="text-center mb-3">Emergency Contacts</h6>
+                        <div class="d-flex justify-content-around text-center">
+                            <div>
+                                <i class="bi bi-telephone-fill text-danger fs-4"></i>
+                                <div class="small">Wildlife Rescue</div>
+                                <div class="fw-bold">1800-WILD</div>
+                            </div>
+                            <div>
+                                <i class="bi bi-shield-fill text-success fs-4"></i>
+                                <div class="small">Ranger Office</div>
+                                <div class="fw-bold">1800-RANG</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Admin Dashboard View -->
+            <section id="adminView" class="view-section">
+                <div class="admin-dashboard">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h5 class="mb-0">
+                            <i class="bi bi-shield-check me-2"></i>
+                            Rescue Dashboard
+                        </h5>
+                        <button class="btn btn-sm btn-outline-danger" onclick="clearAllReports()">
+                            <i class="bi bi-trash"></i> Clear All
+                        </button>
+                    </div>
+
+                    <!-- Statistics Cards -->
+                    <div class="row g-3 mb-4">
+                        <div class="col-6">
+                            <div class="card bg-primary text-white">
+                                <div class="card-body text-center">
+                                    <i class="bi bi-exclamation-triangle fs-3"></i>
+                                    <div class="h4 mb-0" id="totalReports">0</div>
+                                    <div class="small">Total Reports</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="card bg-danger text-white">
+                                <div class="card-body text-center">
+                                    <i class="bi bi-clock-history fs-3"></i>
+                                    <div class="h4 mb-0" id="pendingReports">0</div>
+                                    <div class="small">Pending</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Reports List -->
+                    <div id="reportsList">
+                        <div class="text-center text-muted py-5">
+                            <i class="bi bi-inbox fs-1"></i>
+                            <p class="mt-2">No emergency reports yet</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Sticky Bottom Navigation -->
+        <nav class="bottom-nav">
+            <div class="nav-content">
+                <button class="nav-btn active" data-view="liveMapView">
+                    <i class="bi bi-map-fill"></i>
+                    <span>Live Map</span>
+                </button>
+                <button class="nav-btn" data-view="emergencyView">
+                    <i class="bi bi-exclamation-triangle-fill text-danger"></i>
+                    <span>Report</span>
+                </button>
+                <button class="nav-btn" data-view="adminView">
+                    <i class="bi bi-shield-fill"></i>
+                    <span>Admin</span>
+                </button>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal fade" id="successModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center py-4">
+                    <i class="bi bi-check-circle-fill text-success fs-1"></i>
+                    <h5 class="mt-3">Report Sent Successfully!</h5>
+                    <p>Your emergency report has been sent to the rescue team.</p>
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
