@@ -10,40 +10,262 @@
 </head>
 <body>
     <div class="mobile-container">
-        <!-- Header -->
-        <header class="app-header bg-success text-white p-3">
-            <div class="d-flex justify-content-between align-items-center">
-                <h1 class="h4 mb-0">
-                    <i class="bi bi-tree-fill me-2"></i>
-                    Wildlife Explorer
-                </h1>
-                <div class="d-flex align-items-center">
-                    <span class="badge bg-light text-success me-2">
-                        <i class="bi bi-geo-alt-fill"></i> Live
-                    </span>
+        <!-- Login Screen -->
+        <section id="loginScreen" class="view-section active">
+            <div class="login-container">
+                <div class="text-center mb-5">
+                    <div class="logo-container mb-4">
+                        <i class="bi bi-tree-fill text-success fs-1"></i>
+                    </div>
+                    <h1 class="h3 mb-3">Wildlife Explorer</h1>
+                    <p class="text-muted">Singapore Wildlife Conservation App</p>
+                </div>
+                
+                <div class="role-selection">
+                    <h5 class="text-center mb-4">Select Your Role</h5>
+                    
+                    <div class="role-cards">
+                        <button class="role-card" onclick="app.login('explorer')">
+                            <div class="role-icon bg-success bg-opacity-10">
+                                <i class="bi bi-binoculars-fill text-success fs-2"></i>
+                            </div>
+                            <h6 class="mt-3 mb-2">Explorer</h6>
+                            <p class="small text-muted">For nature enthusiasts like Liz</p>
+                            <div class="role-features">
+                                <span class="badge bg-light text-success me-1">🗺️ Live Map</span>
+                                <span class="badge bg-light text-success me-1">🔍 Explore</span>
+                                <span class="badge bg-light text-success">📸 Identify</span>
+                            </div>
+                        </button>
+                        
+                        <button class="role-card" onclick="app.login('admin')">
+                            <div class="role-icon bg-danger bg-opacity-10">
+                                <i class="bi bi-shield-fill text-danger fs-2"></i>
+                            </div>
+                            <h6 class="mt-3 mb-2">Admin/Rescue</h6>
+                            <p class="small text-muted">For rescue officers like Max</p>
+                            <div class="role-features">
+                                <span class="badge bg-light text-danger me-1">📊 Dashboard</span>
+                                <span class="badge bg-light text-danger me-1">🚨 Reports</span>
+                                <span class="badge bg-light text-danger">📋 Management</span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-5">
+                    <p class="small text-muted">
+                        <i class="bi bi-info-circle me-1"></i>
+                        Choose your role to access the appropriate features
+                    </p>
                 </div>
             </div>
-        </header>
+        </section>
 
         <!-- Main Content Area -->
         <main class="main-content">
-            <!-- Live Map View (Default) -->
+            <!-- Header (shown after login) -->
+            <header id="appHeader" class="app-header bg-success text-white p-3 d-none">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h1 class="h4 mb-0">
+                        <i class="bi bi-tree-fill me-2"></i>
+                        Wildlife Explorer
+                    </h1>
+                    <div class="d-flex align-items-center">
+                        <span id="userRole" class="badge bg-light text-success me-2">
+                            <i class="bi bi-person-circle me-1"></i>
+                            <span id="roleText">Explorer</span>
+                        </span>
+                        <button class="btn btn-sm btn-outline-light" onclick="app.logout()">
+                            <i class="bi bi-box-arrow-right"></i> Logout
+                        </button>
+                    </div>
+                </div>
+            </header>
+            <!-- Explore View -->
+            <section id="exploreView" class="view-section">
+                <div class="explore-section">
+                    <!-- Search Bar -->
+                    <div class="search-section mb-4">
+                        <div class="input-group">
+                            <span class="input-group-text bg-light">
+                                <i class="bi bi-search"></i>
+                            </span>
+                            <input type="text" class="form-control" id="exploreSearch" 
+                                placeholder="Search reserves or wildlife...">
+                        </div>
+                    </div>
+                    
+                    <!-- Nature Spots Grid -->
+                    <div class="row g-3" id="natureSpots">
+                        <div class="col-12">
+                            <div class="nature-spot-card">
+                                <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=200&fit=crop" 
+                                     alt="Sungei Buloh Wetland Reserve" class="card-img">
+                                <div class="card-body">
+                                    <h6 class="card-title">Sungei Buloh Wetland Reserve</h6>
+                                    <p class="card-text small">Singapore's first ASEAN Heritage Park, mangrove ecosystem</p>
+                                    <div class="wildlife-tags">
+                                        <span class="badge bg-success me-1">🦦 Otters</span>
+                                        <span class="badge bg-info me-1">🦎 Monitor Lizards</span>
+                                        <span class="badge bg-warning">🦆 Waders</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-12">
+                            <div class="nature-spot-card">
+                                <img src="https://images.unsplash.com/photo-1540206395-68808572332f?w=400&h=200&fit=crop" 
+                                     alt="MacRitchie Reservoir" class="card-img">
+                                <div class="card-body">
+                                    <h6 class="card-title">MacRitchie Reservoir</h6>
+                                    <p class="card-text small">Tropical rainforest with hiking trails and water activities</p>
+                                    <div class="wildlife-tags">
+                                        <span class="badge bg-success me-1">🐒 Macaques</span>
+                                        <span class="badge bg-info me-1">🦜 Hornbills</span>
+                                        <span class="badge bg-warning">🦋 Butterflies</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-12">
+                            <div class="nature-spot-card">
+                                <img src="https://images.unsplash.com/photo-1579736152633-7ef4da5b9b9e?w=400&h=200&fit=crop" 
+                                     alt="Pasir Ris Mangroves" class="card-img">
+                                <div class="card-body">
+                                    <h6 class="card-title">Pasir Ris Mangroves</h6>
+                                    <p class="card-text small">Coastal mangrove forest with rich biodiversity</p>
+                                    <div class="wildlife-tags">
+                                        <span class="badge bg-success me-1">🦦 Otters</span>
+                                        <span class="badge bg-info me-1">🦀 Crabs</span>
+                                        <span class="badge bg-warning">🐟 Fish</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-12">
+                            <div class="nature-spot-card">
+                                <img src="https://images.unsplash.com/photo-1516426122078-c23e76319801?w=400&h=200&fit=crop" 
+                                     alt="Bukit Timah Nature Reserve" class="card-img">
+                                <div class="card-body">
+                                    <h6 class="card-title">Bukit Timah Nature Reserve</h6>
+                                    <p class="card-text small">Primary rainforest with diverse flora and fauna</p>
+                                    <div class="wildlife-tags">
+                                        <span class="badge bg-success me-1">🐒 Macaques</span>
+                                        <span class="badge bg-info me-1">🦇 Bats</span>
+                                        <span class="badge bg-warning">🦜 Birds</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Identify View -->
+            <section id="identifyView" class="view-section">
+                <div class="identify-section">
+                    <div class="text-center mb-4">
+                        <h5 class="mb-2">AI Wildlife Identification</h5>
+                        <p class="text-muted small">Point your camera at wildlife to identify species</p>
+                    </div>
+                    
+                    <!-- Camera Viewfinder -->
+                    <div class="camera-viewfinder" id="cameraViewfinder">
+                        <div class="viewfinder-corners">
+                            <div class="corner top-left"></div>
+                            <div class="corner top-right"></div>
+                            <div class="corner bottom-left"></div>
+                            <div class="corner bottom-right"></div>
+                        </div>
+                        
+                        <div class="camera-overlay">
+                            <div class="camera-info">
+                                <span class="badge bg-dark bg-opacity-50">
+                                    <i class="bi bi-camera me-1"></i> AI Camera Active
+                                </span>
+                            </div>
+                            
+                            <div class="camera-controls">
+                                <button class="btn btn-danger btn-lg camera-snap-btn" onclick="app.snapPhoto()">
+                                    <i class="bi bi-camera-fill"></i>
+                                    <div class="small mt-1">Snap Photo to ID</div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- AI Result Card (hidden initially) -->
+                    <div id="aiResult" class="ai-result-card d-none">
+                        <div class="card border-success">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <i class="bi bi-check-circle-fill text-success fs-4 me-3"></i>
+                                    <div>
+                                        <h6 class="mb-1">Species Identified</h6>
+                                        <div class="fw-bold text-success" id="identifiedSpecies">Smooth-coated Otter</div>
+                                        <small class="text-muted" id="scientificName">Lutrogale perspicillata</small>
+                                    </div>
+                                </div>
+                                
+                                <div class="match-confidence mb-3">
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                        <span class="small">Match Confidence</span>
+                                        <span class="small fw-bold" id="matchPercentage">98%</span>
+                                    </div>
+                                    <div class="progress" style="height: 8px;">
+                                        <div class="progress-bar bg-success" id="confidenceBar" style="width: 98%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="species-description">
+                                    <p class="small text-muted mb-0" id="speciesDescription">
+                                        The smooth-coated otter is a protected species in Singapore, commonly found in 
+                                        mangroves, rivers, and coastal areas. They are highly social and live in family groups.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center mt-3">
+                            <button class="btn btn-success" onclick="app.resetCamera()">
+                                <i class="bi bi-arrow-clockwise me-1"></i> Identify Another
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Loading Spinner (hidden initially) -->
+                    <div id="aiLoading" class="ai-loading d-none">
+                        <div class="text-center">
+                            <div class="spinner-border text-success mb-3" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <h6>Scanning AI Database...</h6>
+                            <p class="text-muted small">Analyzing wildlife patterns and features</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Live Map View -->
             <section id="liveMapView" class="view-section active">
                 <div class="map-container">
                     <img src="https://picsum.photos/seed/wildlifemap/400/600" alt="Wildlife Map" class="map-image">
                     
                     <!-- Wildlife Pins -->
-                    <div class="map-pin" style="top: 20%; left: 30%;" data-species="bird" data-location="Forest Area A">
-                        <i class="bi bi-twitter-fill text-primary"></i>
-                    </div>
-                    <div class="map-pin" style="top: 40%; left: 60%;" data-species="otter" data-location="River Point B">
+                    <div class="map-pin" style="top: 20%; left: 30%;" data-species="otter" data-location="Sungei Buloh">
                         <i class="bi bi-droplet-fill text-info"></i>
                     </div>
-                    <div class="map-pin" style="top: 65%; left: 25%;" data-species="bird" data-location="Wetland C">
+                    <div class="map-pin" style="top: 40%; left: 60%;" data-species="macaque" data-location="MacRitchie">
+                        <i class="bi bi-emoji-smile text-warning"></i>
+                    </div>
+                    <div class="map-pin" style="top: 65%; left: 25%;" data-species="hornbill" data-location="Bukit Timah">
                         <i class="bi bi-twitter-fill text-primary"></i>
                     </div>
-                    <div class="map-pin" style="top: 80%; left: 70%;" data-species="deer" data-location="Meadow D">
-                        <i class="bi bi-flower1 text-warning"></i>
+                    <div class="map-pin" style="top: 80%; left: 70%;" data-species="monitor" data-location="Pasir Ris">
+                        <i class="bi bi-shield-fill text-danger"></i>
                     </div>
                     
                     <!-- Map Controls -->
@@ -66,22 +288,22 @@
                     <div class="sighting-list">
                         <div class="sighting-item d-flex justify-content-between align-items-center py-2 border-bottom">
                             <div>
-                                <i class="bi bi-twitter-fill text-primary me-2"></i>
-                                <span>Bird spotted at Forest Area A</span>
+                                <i class="bi bi-droplet-fill text-info me-2"></i>
+                                <span>Otter at Sungei Buloh</span>
                             </div>
                             <small class="text-muted">2 min ago</small>
                         </div>
                         <div class="sighting-item d-flex justify-content-between align-items-center py-2 border-bottom">
                             <div>
-                                <i class="bi bi-droplet-fill text-info me-2"></i>
-                                <span>Otter at River Point B</span>
+                                <i class="bi bi-emoji-smile text-warning me-2"></i>
+                                <span>Macaques near MacRitchie</span>
                             </div>
                             <small class="text-muted">5 min ago</small>
                         </div>
                         <div class="sighting-item d-flex justify-content-between align-items-center py-2">
                             <div>
-                                <i class="bi bi-flower1 text-warning me-2"></i>
-                                <span>Deer in Meadow D</span>
+                                <i class="bi bi-twitter-fill text-primary me-2"></i>
+                                <span>Hornbill at Bukit Timah</span>
                             </div>
                             <small class="text-muted">12 min ago</small>
                         </div>
@@ -237,20 +459,33 @@
             </section>
         </main>
 
-        <!-- Sticky Bottom Navigation -->
-        <nav class="bottom-nav">
-            <div class="nav-content">
+        <!-- Bottom Navigation -->
+        <nav id="bottomNav" class="bottom-nav d-none">
+            <!-- Explorer Navigation -->
+            <div id="explorerNav" class="nav-content">
                 <button class="nav-btn active" data-view="liveMapView">
                     <i class="bi bi-map-fill"></i>
                     <span>Live Map</span>
+                </button>
+                <button class="nav-btn" data-view="exploreView">
+                    <i class="bi bi-search"></i>
+                    <span>Explore</span>
+                </button>
+                <button class="nav-btn" data-view="identifyView">
+                    <i class="bi bi-camera-fill"></i>
+                    <span>Identify</span>
                 </button>
                 <button class="nav-btn" data-view="emergencyView">
                     <i class="bi bi-exclamation-triangle-fill text-danger"></i>
                     <span>Report</span>
                 </button>
-                <button class="nav-btn" data-view="adminView">
+            </div>
+            
+            <!-- Admin Navigation -->
+            <div id="adminNav" class="nav-content d-none">
+                <button class="nav-btn active" data-view="adminView">
                     <i class="bi bi-shield-fill"></i>
-                    <span>Admin</span>
+                    <span>Dashboard</span>
                 </button>
             </div>
         </nav>

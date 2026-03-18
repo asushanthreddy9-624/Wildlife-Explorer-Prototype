@@ -1,11 +1,39 @@
-// Wildlife Explorer App - Main JavaScript
-// Mobile-First SPA with LocalStorage
+// Wildlife Explorer App - Enhanced with Role-Based Authentication
+// Mobile-First SPA with LocalStorage and AI Identification
 
 class WildlifeExplorerApp {
     constructor() {
-        this.currentView = 'liveMapView';
+        this.currentView = 'loginScreen';
+        this.currentUser = null;
+        this.userRole = null;
         this.reports = [];
         this.mapPins = [];
+        this.aiSpecies = [
+            {
+                name: 'Smooth-coated Otter',
+                scientific: 'Lutrogale perspicillata',
+                confidence: 98,
+                description: 'The smooth-coated otter is a protected species in Singapore, commonly found in mangroves, rivers, and coastal areas. They are highly social and live in family groups.'
+            },
+            {
+                name: 'Long-tailed Macaque',
+                scientific: 'Macaca fascicularis',
+                confidence: 95,
+                description: 'Long-tailed macaques are the most common primates in Singapore, found in forests and parks. They are intelligent and adaptable animals.'
+            },
+            {
+                name: 'Oriental Pied Hornbill',
+                scientific: 'Anthracoceros albirostris',
+                confidence: 92,
+                description: 'The Oriental pied hornbill is a large bird species successfully reintroduced to Singapore. They have distinctive black and white plumage with a large casque.'
+            },
+            {
+                name: 'Monitor Lizard',
+                scientific: 'Varanus salvator',
+                confidence: 89,
+                description: 'Monitor lizards are common in Singapore\'s parks and waterways. They are excellent swimmers and can grow up to 2 meters in length.'
+            }
+        ];
         this.init();
     }
 
@@ -14,6 +42,7 @@ class WildlifeExplorerApp {
         this.setupNavigation();
         this.setupEmergencyForm();
         this.setupMapPins();
+        this.setupExploreSearch();
         this.updateDashboard();
         this.startLocationUpdates();
         this.initializeApp();
@@ -22,7 +51,9 @@ class WildlifeExplorerApp {
     // Initialize the app
     initializeApp() {
         console.log('Wildlife Explorer App initialized');
-        this.showView('liveMapView');
+        
+        // Check for existing session
+        this.checkExistingSession();
         
         // Add initial animation
         setTimeout(() => {
@@ -30,7 +61,109 @@ class WildlifeExplorerApp {
         }, 100);
     }
 
-    // Navigation System
+    // Authentication System
+    login(role) {
+        this.userRole = role;
+        this.currentUser = role === 'explorer' ? 'Liz' : 'Max';
+        
+        // Save session to LocalStorage
+        localStorage.setItem('wildlifeSession', JSON.stringify({
+            user: this.currentUser,
+            role: this.userRole,
+            timestamp: new Date().toISOString()
+        }));
+        
+        // Show appropriate interface
+        this.showAppInterface();
+        this.showSuccess(`Welcome back, ${this.currentUser}!`);
+    }
+    
+    logout() {
+        // Clear session
+        localStorage.removeItem('wildlifeSession');
+        
+        // Reset user state
+        this.userRole = null;
+        this.currentUser = null;
+        
+        // Show login screen
+        this.showLoginScreen();
+        this.showSuccess('Logged out successfully');
+    }
+    
+    checkExistingSession() {
+        const session = localStorage.getItem('wildlifeSession');
+        if (session) {
+            const sessionData = JSON.parse(session);
+            const sessionAge = Date.now() - new Date(sessionData.timestamp).getTime();
+            
+            // Session valid for 24 hours
+            if (sessionAge < 24 * 60 * 60 * 1000) {
+                this.userRole = sessionData.role;
+                this.currentUser = sessionData.user;
+                this.showAppInterface();
+                return;
+            }
+        }
+        
+        // Show login screen if no valid session
+        this.showLoginScreen();
+    }
+    
+    showLoginScreen() {
+        // Hide app elements
+        document.getElementById('appHeader').classList.add('d-none');
+        document.getElementById('bottomNav').classList.add('d-none');
+        
+        // Hide all app views
+        document.querySelectorAll('.view-section').forEach(section => {
+            section.classList.remove('active');
+        });
+        
+        // Show login screen
+        document.getElementById('loginScreen').classList.add('active');
+        this.currentView = 'loginScreen';
+    }
+    
+    showAppInterface() {
+        // Hide login screen
+        document.getElementById('loginScreen').classList.remove('active');
+        
+        // Show app elements
+        document.getElementById('appHeader').classList.remove('d-none');
+        document.getElementById('bottomNav').classList.remove('d-none');
+        
+        // Update role display
+        document.getElementById('roleText').textContent = 
+            this.userRole === 'explorer' ? 'Explorer' : 'Admin';
+        
+        // Setup role-based navigation
+        this.setupRoleBasedNavigation();
+        
+        // Load existing data
+        this.loadReportsFromStorage();
+        this.updateDashboard();
+        
+        // Show default view
+        const defaultView = this.userRole === 'explorer' ? 'liveMapView' : 'adminView';
+        this.showView(defaultView);
+    }
+    
+    setupRoleBasedNavigation() {
+        const explorerNav = document.getElementById('explorerNav');
+        const adminNav = document.getElementById('adminNav');
+        
+        if (this.userRole === 'explorer') {
+            explorerNav.classList.remove('d-none');
+            adminNav.classList.add('d-none');
+        } else {
+            explorerNav.classList.add('d-none');
+            adminNav.classList.remove('d-none');
+        }
+        
+        // Re-attach navigation event listeners
+        this.setupNavigation();
+    }
     setupNavigation() {
         const navButtons = document.querySelectorAll('.nav-btn');
         
@@ -69,7 +202,97 @@ class WildlifeExplorerApp {
         activeBtn.classList.add('active');
     }
 
-    // Map Functionality
+    // AI Identification System
+    snapPhoto() {
+        const viewfinder = document.getElementById('cameraViewfinder');
+        const loading = document.getElementById('aiLoading');
+        const result = document.getElementById('aiResult');
+        
+        // Show loading state
+        viewfinder.classList.add('d-none');
+        loading.classList.remove('d-none');
+        
+        // Simulate AI processing
+        setTimeout(() => {
+            // Hide loading
+            loading.classList.add('d-none');
+            
+            // Get random species result
+            const species = this.aiSpecies[Math.floor(Math.random() * this.aiSpecies.length)];
+            
+            // Update result UI
+            document.getElementById('identifiedSpecies').textContent = species.name;
+            document.getElementById('scientificName').textContent = species.scientific;
+            document.getElementById('matchPercentage').textContent = species.confidence + '%';
+            document.getElementById('confidenceBar').style.width = species.confidence + '%';
+            document.getElementById('speciesDescription').textContent = species.description;
+            
+            // Show result
+            result.classList.remove('d-none');
+            
+            // Add to sightings (optional enhancement)
+            this.addAISighting(species.name);
+            
+        }, 2000);
+    }
+    
+    resetCamera() {
+        const viewfinder = document.getElementById('cameraViewfinder');
+        const result = document.getElementById('aiResult');
+        
+        // Reset to camera view
+        result.classList.add('d-none');
+        viewfinder.classList.remove('d-none');
+    }
+    
+    addAISighting(speciesName) {
+        // Add to recent sightings in map view
+        const sightingList = document.querySelector('.sighting-list');
+        if (sightingList) {
+            const newSighting = document.createElement('div');
+            newSighting.className = 'sighting-item d-flex justify-content-between align-items-center py-2 border-bottom';
+            newSighting.innerHTML = `
+                <div>
+                    <i class="bi bi-camera-fill text-success me-2"></i>
+                    <span>AI ID: ${speciesName}</span>
+                </div>
+                <small class="text-muted">Just now</small>
+            `;
+            
+            // Add to top of list
+            sightingList.insertBefore(newSighting, sightingList.firstChild);
+            
+            // Remove last item if list is too long
+            const items = sightingList.querySelectorAll('.sighting-item');
+            if (items.length > 3) {
+                items[items.length - 1].remove();
+            }
+        }
+    }
+    
+    // Explore Section Functionality
+    setupExploreSearch() {
+        const searchInput = document.getElementById('exploreSearch');
+        if (!searchInput) return;
+        
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const spots = document.querySelectorAll('.nature-spot-card');
+            
+            spots.forEach(spot => {
+                const title = spot.querySelector('.card-title').textContent.toLowerCase();
+                const description = spot.querySelector('.card-text').textContent.toLowerCase();
+                const tags = Array.from(spot.querySelectorAll('.badge'))
+                    .map(badge => badge.textContent.toLowerCase()).join(' ');
+                
+                const matches = title.includes(searchTerm) || 
+                              description.includes(searchTerm) || 
+                              tags.includes(searchTerm);
+                
+                spot.style.display = matches ? 'block' : 'none';
+            });
+        });
+    }
     setupMapPins() {
         const pins = document.querySelectorAll('.map-pin');
         
@@ -126,9 +349,10 @@ class WildlifeExplorerApp {
 
     getSpeciesName(species) {
         const speciesNames = {
-            'bird': 'Bird',
             'otter': 'Otter',
-            'deer': 'Deer'
+            'macaque': 'Macaque',
+            'hornbill': 'Hornbill',
+            'monitor': 'Monitor Lizard'
         };
         return speciesNames[species] || 'Wildlife';
     }
@@ -553,21 +777,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Global functions for inline event handlers
 function zoomIn() {
-    window.app.zoomIn();
+    if (window.app && window.app.userRole) {
+        window.app.zoomIn();
+    }
 }
 
 function zoomOut() {
-    window.app.zoomOut();
+    if (window.app && window.app.userRole) {
+        window.app.zoomOut();
+    }
 }
 
 function resetMap() {
-    window.app.resetMap();
+    if (window.app && window.app.userRole) {
+        window.app.resetMap();
+    }
 }
 
 function updateLocation() {
-    window.app.updateLocation();
+    if (window.app && window.app.userRole) {
+        window.app.updateLocation();
+    }
 }
 
 function clearAllReports() {
-    window.app.clearAllReports();
+    if (window.app && window.app.userRole) {
+        window.app.clearAllReports();
+    }
 }
