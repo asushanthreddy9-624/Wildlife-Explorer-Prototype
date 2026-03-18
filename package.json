@@ -1,0 +1,22 @@
+{
+  "name": "wildlife-explorer-prototype",
+  "version": "1.0.0",
+  "description": "A web application for exploring wildlife species and their habitats",
+  "main": "index.html",
+  "scripts": {
+    "dev": "live-server --port=3000 --open=/index.html",
+    "build": "echo 'Build process not yet implemented'",
+    "test": "echo 'Tests not yet implemented'",
+    "lint": "eslint src/**/*.js"
+  },
+  "keywords": ["wildlife", "explorer", "nature", "species", "conservation"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "live-server": "^1.2.2",
+    "eslint": "^8.57.0"
+  },
+  "dependencies": {
+    "tailwindcss": "^3.4.1"
+  }
+}

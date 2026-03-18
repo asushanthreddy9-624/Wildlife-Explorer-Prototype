@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wildlife Explorer - Discover Nature's Wonders</title>
+    <meta name="description" content="Explore wildlife species, their habitats, and conservation status">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="src/styles/main.css">
+</head>
+<body class="bg-gray-50">
+    <!-- Header Navigation -->
+    <header class="bg-green-700 text-white shadow-lg">
+        <nav class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 2a1 1 0 011 1v1.323l3.954 1.582 1.599-.8a1 1 0 01.894 1.79l-1.233.616 1.738 5.42a1 1 0 01-.285 1.05A3.989 3.989 0 0115 15a3.989 3.989 0 01-2.667-1.019 1 1 0 01-.285-1.05l1.715-5.349L11 6.477V16a1 1 0 11-2 0V6.477L6.237 7.582l1.715 5.349a1 1 0 01-.285 1.05A3.989 3.989 0 015 15a3.989 3.989 0 01-2.667-1.019 1 1 0 01-.285-1.05l1.738-5.42-1.233-.617a1 1 0 01.894-1.788l1.599.799L9 4.323V3a1 1 0 011-1z"/>
+                    </svg>
+                    <h1 class="text-2xl font-bold">Wildlife Explorer</h1>
+                </div>
+                <ul class="flex space-x-6">
+                    <li><a href="#home" class="hover:text-green-200 transition-colors">Home</a></li>
+                    <li><a href="#species" class="hover:text-green-200 transition-colors">Species</a></li>
+                    <li><a href="#habitats" class="hover:text-green-200 transition-colors">Habitats</a></li>
+                    <li><a href="#conservation" class="hover:text-green-200 transition-colors">Conservation</a></li>
+                    <li><a href="#about" class="hover:text-green-200 transition-colors">About</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Hero Section -->
+        <section id="home" class="text-center py-16 bg-gradient-to-r from-green-600 to-blue-600 rounded-lg text-white mb-12">
+            <h2 class="text-4xl font-bold mb-4">Discover the Wonders of Wildlife</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">Explore fascinating species, learn about their habitats, and understand conservation efforts around the world.</p>
+            <div class="space-x-4">
+                <button class="bg-white text-green-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                    Explore Species
+                </button>
+                <button class="border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-green-600 transition-colors">
+                    Learn More
+                </button>
+            </div>
+        </section>
+
+        <!-- Search Section -->
+        <section class="mb-12">
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <div class="flex flex-col md:flex-row gap-4">
+                    <input 
+                        type="text" 
+                        id="searchInput"
+                        placeholder="Search species, habitats, or conservation status..." 
+                        class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                    >
+                    <select id="categoryFilter" class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                        <option value="">All Categories</option>
+                        <option value="mammals">Mammals</option>
+                        <option value="birds">Birds</option>
+                        <option value="reptiles">Reptiles</option>
+                        <option value="amphibians">Amphibians</option>
+                        <option value="fish">Fish</option>
+                        <option value="insects">Insects</option>
+                    </select>
+                    <button id="searchBtn" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors">
+                        Search
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Species Section -->
+        <section id="species" class="mb-12">
+            <h2 class="text-3xl font-bold mb-8 text-gray-800">Featured Species</h2>
+            <div id="speciesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Species cards will be dynamically inserted here -->
+            </div>
+        </section>
+
+        <!-- Habitat Map Section -->
+        <section id="habitats" class="mb-12">
+            <h2 class="text-3xl font-bold mb-8 text-gray-800">Explore Habitats</h2>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <div id="habitatMap" class="h-96 bg-gray-200 rounded-lg flex items-center justify-center">
+                    <p class="text-gray-600">Interactive habitat map will be displayed here</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Conservation Status Section -->
+        <section id="conservation" class="mb-12">
+            <h2 class="text-3xl font-bold mb-8 text-gray-800">Conservation Status</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-red-100 p-6 rounded-lg border-l-4 border-red-600">
+                    <h3 class="font-bold text-red-800 mb-2">Critically Endangered</h3>
+                    <p class="text-3xl font-bold text-red-600">0</p>
+                    <p class="text-gray-600">Species at extreme risk</p>
+                </div>
+                <div class="bg-orange-100 p-6 rounded-lg border-l-4 border-orange-600">
+                    <h3 class="font-bold text-orange-800 mb-2">Endangered</h3>
+                    <p class="text-3xl font-bold text-orange-600">0</p>
+                    <p class="text-gray-600">Species at high risk</p>
+                </div>
+                <div class="bg-yellow-100 p-6 rounded-lg border-l-4 border-yellow-600">
+                    <h3 class="font-bold text-yellow-800 mb-2">Vulnerable</h3>
+                    <p class="text-3xl font-bold text-yellow-600">0</p>
+                    <p class="text-gray-600">Species at risk</p>
+                </div>
+                <div class="bg-green-100 p-6 rounded-lg border-l-4 border-green-600">
+                    <h3 class="font-bold text-green-800 mb-2">Least Concern</h3>
+                    <p class="text-3xl font-bold text-green-600">0</p>
+                    <p class="text-gray-600">Species thriving</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-16">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Wildlife Explorer</h3>
+                    <p class="text-gray-400">Dedicated to wildlife education and conservation awareness.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Terms of Use</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Connect</h4>
+                    <p class="text-gray-400">Follow us for wildlife updates and conservation news.</p>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 Wildlife Explorer. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="src/utils/data.js"></script>
+    <script src="src/components/species-card.js"></script>
+    <script src="src/components/search.js"></script>
+    <script src="src/app.js"></script>
+</body>
+</html>
