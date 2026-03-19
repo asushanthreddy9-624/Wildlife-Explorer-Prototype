@@ -3,6 +3,11 @@
 
 A mobile-first prototype for exploring Singapore's wildlife and reporting emergencies.
 
+## 🌐 **Live Demo**
+**[🚀 Try the Live App Here](https://asushanthreddy9-624.github.io/Wildlife-Explorer-Prototype/mobile-app.html)**
+
+*Open in mobile browser for best experience!*
+
 ## 🚀 Quick Start
 
 Simply open `mobile-app.html` in your web browser - the app works immediately without any setup!
