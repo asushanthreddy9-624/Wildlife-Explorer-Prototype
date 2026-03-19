@@ -13,7 +13,7 @@ const wildlifeData = {
             diet: "Herbivore",
             weight: "6,000 kg",
             lifespan: "60-70 years",
-            image: "https://via.placeholder.com/400x300/4ade80/ffffff?text=African+Elephant",
+            image: "assets/images/mandai_wildlife.jpg",
             threats: ["Habitat loss", "Poaching", "Human-wildlife conflict"],
             conservation: "Protected under CITES Appendix I"
         },
@@ -29,7 +29,7 @@ const wildlifeData = {
             diet: "Carnivore",
             weight: "220 kg",
             lifespan: "10-15 years",
-            image: "https://via.placeholder.com/400x300/f97316/ffffff?text=Bengal+Tiger",
+            image: "assets/images/night-safari-singapore.webp",
             threats: ["Habitat fragmentation", "Poaching", "Prey depletion"],
             conservation: "Protected under CITES Appendix I"
         },
@@ -45,7 +45,7 @@ const wildlifeData = {
             diet: "Carnivore (krill)",
             weight: "200,000 kg",
             lifespan: "80-90 years",
-            image: "https://via.placeholder.com/400x300/3b82f6/ffffff?text=Blue+Whale",
+            image: "assets/images/amazon-flooded-forest-keeper-guided-trail-at-river-wonders-singapore.webp",
             threats: ["Ship strikes", "Entanglement", "Ocean noise"],
             conservation: "Protected under various international agreements"
         },
@@ -61,7 +61,7 @@ const wildlifeData = {
             diet: "Herbivore (bamboo)",
             weight: "100 kg",
             lifespan: "20 years",
-            image: "https://via.placeholder.com/400x300/64748b/ffffff?text=Giant+Panda",
+            image: "assets/images/macritchie-nature-trail-singapore.webp",
             threats: ["Habitat loss", "Low birth rate", "Bamboo die-offs"],
             conservation: "Conservation efforts have helped increase populations"
         },
@@ -77,7 +77,7 @@ const wildlifeData = {
             diet: "Carnivore (fish, small mammals)",
             weight: "6.5 kg",
             lifespan: "20-30 years",
-            image: "https://via.placeholder.com/400x300/8b5cf6/ffffff?text=Bald+Eagle",
+            image: "assets/images/Singapore_Bird_Paradise_parrots.avif",
             threats: ["Habitat destruction", "Lead poisoning", "Power line collisions"],
             conservation: "Success story - recovered from endangered status"
         },
@@ -93,7 +93,7 @@ const wildlifeData = {
             diet: "Herbivore (seagrass, algae)",
             weight: "160 kg",
             lifespan: "60-70 years",
-            image: "https://via.placeholder.com/400x300/22c55e/ffffff?text=Green+Sea+Turtle",
+            image: "assets/images/bird-paradise-singapore.webp",
             threats: ["Plastic pollution", "Habitat loss", "Climate change"],
             conservation: "Protected under various international laws"
         },
@@ -109,7 +109,7 @@ const wildlifeData = {
             diet: "Herbivore (milkweed)",
             weight: "0.5 grams",
             lifespan: "2-6 weeks (most generations), up to 8 months (migrating generation)",
-            image: "https://via.placeholder.com/400x300/eab308/000000?text=Monarch+Butterfly",
+            image: "assets/images/Singapore_Bird_Paradise_parrots.avif",
             threats: ["Habitat loss", "Pesticide use", "Climate change"],
             conservation: "Conservation efforts focus on habitat protection"
         },
@@ -125,7 +125,7 @@ const wildlifeData = {
             diet: "Carnivore (insects)",
             weight: "6-15 grams",
             lifespan: "5 years",
-            image: "https://via.placeholder.com/400x300/ef4444/ffffff?text=Red-eyed+Tree+Frog",
+            image: "assets/images/wildlife-rescue-tortoise-749x500.webp",
             threats: ["Habitat destruction", "Climate change", "Pollution"],
             conservation: "Currently stable but monitoring needed"
         }
