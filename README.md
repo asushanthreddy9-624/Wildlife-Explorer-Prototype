@@ -4,7 +4,17 @@
 A mobile-first prototype for exploring Singapore's wildlife and reporting emergencies.
 
 ## 🌐 **Live Demo**
-**[🚀 Try the Live App Here](https://asushanthreddy9-624.github.io/Wildlife-Explorer-Prototype/mobile-app.html)**
+**[🚀 Try the Live App Here](https://asushanthreddy9-624.github.io/Wildlife-Explorer-Prototype/)**
+
+*Note: GitHub Pages may take a few minutes to activate after first deployment*
+
+### 📋 **To Enable GitHub Pages:**
+1. Go to your repository on GitHub
+2. Click **Settings** → **Pages**
+3. Source: **Deploy from a branch**
+4. Branch: **main**
+5. Folder: **/(root)**
+6. Click **Save**
 
 *Open in mobile browser for best experience!*
 
